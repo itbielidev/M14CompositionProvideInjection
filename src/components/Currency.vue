@@ -1,0 +1,27 @@
+<script setup lang="ts">
+
+</script>
+
+<template>
+ <div>
+    <label for="currency">Currency</label>
+    <select name="currency" class="currency">
+        <option value="javascript">Dollars($)</option>
+        <option value="php">Euros(€)</option>
+      </select>
+ </div>
+</template>
+
+<style scoped >
+div{
+    display: flex;
+    justify-content: center;
+}
+.currency{
+  text-align: center;
+  width: auto;
+  background-color: white;
+  border-color: black;
+  text-decoration: none;
+}
+</style>
