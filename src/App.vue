@@ -1,50 +1,71 @@
-<script setup >
-import Order from '@/components/Order.vue'
-import Currency from '@/components/Currency.vue'
-const ingredientChoice = [    
-     { name: "Hamburger 🍔.", price: 5 },
-     { name: "Cheeseburger 🧀", price: 6 },
-     { name: "Impossible Burger 🥕", price: 7 },
-     { name: "Fries 🍟", price: 2 }];
+<script setup lang="ts">
+import Order from "@/components/Order.vue";
+import Currency from "@/components/Currency.vue";
+import { ref } from "vue";
+
+const ingredientChoice = [
+  { name: "Hamburger 🍔.", price: 5 },
+  { name: "Cheeseburger 🧀", price: 6 },
+  { name: "Impossible Burger 🥕", price: 7 },
+  { name: "Fries 🍟", price: 2 },
+];
+
+const orderTitle = ref("");
+
 </script>
 
 <template>
-<h1>The Snazzy Burger</h1>
-<input class="clientName" type="text">
-<button class="sendOrder">Place Order</button>
-<div class="ticket">
-<div class="item" v-for="(name, price) in ingredientChoice"/>
-<p class="ingredient">{{ingredientChoice.name}}</p>
-    <p class="ingredientPrice">{{ ingredient.price }}</p>
-    <button class="">Add to Cart</button>
-</div>
-</div>
+  <h1>{{ orderTitle }}</h1>
+  <form action="/" method="get">
+    <input v-model="orderTitle" name="clientName" class="clientName" type="text" />
+  <button class="sendOrder">Place Order</button>
+  </form>
+  <div class="ticket">
+    <div
+      class="item"
+      v-for="ingredient in ingredientChoice"
+      :key="ingredient.name">
+      <p class="ingredient">{{ ingredient.name }}</p>
+      <p class="ingredientPrice">{{ ingredient.price }}</p>
+      <button @click="() => orderTitle = 'askjdasdh'">Add to Cart</button>
+    </div>
+  </div>
 </template>
 
-<style >
-#app{
+<style>
+#app {
   display: flex;
   flex-direction: column;
-  width: 40rem;
   justify-content: center;
-
 }
-h1{
- align-self: center;
- margin-bottom: 10px;
- width: 10rem;
- text-align: center;
- 
+h1 {
+  align-self: center;
+  margin-bottom: 10px;
+  width: 10rem;
+  text-align: center;
 }
 
-.clientName{
+.clientName {
   align-self: center;
   width: 20rem;
   margin-bottom: 5px;
 }
 
-.sendOrder{
+.sendOrder {
   align-self: center;
   width: auto;
+}
+
+.ticket {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 </style>
