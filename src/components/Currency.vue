@@ -3,17 +3,21 @@
 </script>
 
 <template>
- <div>
+ <!-- <div>
     <label for="currency">Currency</label>
     <select name="currency" class="currency">
-        <option value="javascript">Dollars($)</option>
-        <option value="php">Euros(€)</option>
+        <option value="dolars">Dollars($)</option>
+        <option value="euros">Euros(€)</option>
       </select>
- </div>
+ </div> -->
+
+<span id="dolar">$</span>
+<span id="euro">€</span>
+
 </template>
 
 <style scoped >
-div{
+/* div{
     display: flex;
     justify-content: center;
 }
@@ -23,5 +27,5 @@ div{
   background-color: white;
   border-color: black;
   text-decoration: none;
-}
+} */
 </style>
