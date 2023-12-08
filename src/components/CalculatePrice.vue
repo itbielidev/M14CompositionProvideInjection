@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+  const {currency} = defineProps(['currency'])
 </script>
 
 <template>
@@ -11,8 +11,7 @@
       </select>
  </div> -->
 
-<span id="dolar">$</span>
-<span id="euro">€</span>
+<span id="currency">{{ currency }}</span>
 
 </template>
 

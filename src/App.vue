@@ -1,59 +1,70 @@
 <script setup lang="ts">
-import Order from "@/components/Order.vue";
-import Currency from "@/components/Currency.vue";
-import { ref } from "vue";
-const ingredientChoice = [
+import { ref, provide } from "vue";
+
+import CalculatePrice from "@/components/CalculatePrice.vue";
+import Order from '@/components/Order.vue'
+import type {Ingredient} from '@/types/ingredient';
+
+const orderTitle = ref("");
+const currency = ref("€");
+const cart = ref<Ingredient[]>([])
+
+provide('order', cart)
+provide('coin', currency)
+
+const ingredientChoice: Ingredient[] = [
   { name: "Hamburger 🍔.", price: 5 },
   { name: "Cheeseburger 🧀", price: 6 },
   { name: "Impossible Burger 🥕", price: 7 },
   { name: "Fries 🍟", price: 2 },
 ];
 
-const orderTitle = ref("");
-
 function showAlert(){
   if (orderTitle.value!==''){
-  alert("Your order has been placed")
+    alert("Your order has been placed")
   }
 }
 
-function currencyChanged(e:Event){
-  console.log((e.target as HTMLSelectElement).value)
+function addToCart(ingredient: Ingredient) {
+  cart.value.push(ingredient)
 }
+
 
 </script>
 
 <template>
   <h1>{{ orderTitle }}</h1>
-  <form action="/" method="get">
-    <input v-model="orderTitle" name="clientName" class="clientName" type="text" />
+  <input v-model="orderTitle" name="clientName" class="clientName" type="text" />
   <button class="sendOrder" @click="() => showAlert()">Place Order</button>
-  </form>
   <div class="ticket">
     <div>
     <label for="currency">Currency</label>
-    <select name="currency" class="currency" @input="currencyChanged">
-        <option value="dolars">Dollars($)</option>
-        <option value="euros">Euros(€)</option>
-      </select>
- </div>
+    <select name="currency" class="currency" v-model="currency">
+      <option value="$">Dollars($)</option>
+      <option value="€">Euros(€)</option>
+    </select>
+  </div>
     <div
       class="item"
       v-for="ingredient in ingredientChoice"
       :key="ingredient.name">
       <p class="ingredient">{{ ingredient.name }}</p>
-      <Currency></Currency>
+      <CalculatePrice :currency="currency" />
       <p class="ingredientPrice">{{ingredient.price.toFixed(2) }}</p>
-      <button>Add to Cart</button>
+      <button @click="() => addToCart(ingredient)">Add to Cart</button>
     </div>
   </div>
+
+  <section>
+    <h2>Your order</h2>
+    <Order />
+  </section>
 </template>
 
 <style>
 .currency{
   text-align: center;
   width: auto;
-  background-color: white;
   border-color: black;
   text-decoration: none;
 }
